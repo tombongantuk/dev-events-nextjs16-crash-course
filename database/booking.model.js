@@ -43,6 +43,16 @@ BookingSchema.pre('save', async function (next) {
 
   next();
 });
+// Create index on eventId for faster queries
+BookingSchema.index({ eventId: 1 });
 
+// Create compound index for common queries (events bookings by date)
+BookingSchema.index({ eventId: 1, createdAt: -1 });
+
+// Create index on email for user booking lookups
+BookingSchema.index({ email: 1 });
+
+// Enforce one booking per events per email
+BookingSchema.index({ eventId: 1, email: 1 }, { unique: true, name: 'uniq_event_email' });
 const Booking = models.Booking || model('Booking', BookingSchema);
 export default Booking;
