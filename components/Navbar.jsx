@@ -1,5 +1,8 @@
+"use client"
+
 import Image from "next/image"
 import Link from "next/link"
+import { trackCreateEventNavClicked, trackHomeNavClicked, trackEventsNavClicked } from "@/app/actions"
 
 const Navbar = () => {
   return (
@@ -10,12 +13,12 @@ const Navbar = () => {
           <p>DevEvent</p>
         </Link>
         <ul>
-          <Link href={"/"}>Home</Link>
-          <Link href={"/"}>Event</Link>
-          <Link href={"/"}>Create Event</Link>
+          <Link href={"/"} onClick={trackHomeNavClicked}>Home</Link>
+          <Link href={"/"} onClick={trackEventsNavClicked}>Event</Link>
+          <Link href={"/"} onClick={trackCreateEventNavClicked}>Create Event</Link>
         </ul>
       </nav>
-    </header>    
+    </header>
   )
 }
 

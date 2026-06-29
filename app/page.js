@@ -2,8 +2,20 @@ import EventCard from "@/components/EventCard";
 import ExploreBtn from "@/components/ExploreBtn";
 
 import events from "@/lib/constanst";
+import { posthog } from "@/lib/posthog";
+import { cookies } from "next/headers";
 
-export default function Home() {
+export default async function Home() {
+  const cookieStore = await cookies();
+  const distinctId = cookieStore.get("ph_distinct_id")?.value ?? "anonymous";
+  posthog.capture({
+    distinctId,
+    event: "home page viewed",
+    properties: {
+      $current_url: "/",
+    },
+  });
+
   return (
     <section>
       <h1 className="text-center">The Hub for Every Dev Event <br/> You Can&apos;t Miss</h1>
