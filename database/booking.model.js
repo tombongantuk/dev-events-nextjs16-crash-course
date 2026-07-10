@@ -48,7 +48,6 @@ BookingSchema.index({ eventId: 1 });
 
 // Create compound index for common queries (events bookings by date)
 BookingSchema.index({ eventId: 1, createdAt: -1 });
-
 // Create index on email for user booking lookups
 BookingSchema.index({ email: 1 });
 
