@@ -1,17 +1,16 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   /* config options here */
-  cacheComponent:true,
-  images: {
+  cacheComponents: true, images: {
     remotePatterns: [{
       protocol: "https",
       hostname: "res.cloudinary.com",
-      pathname:"/**"
+      pathname: "/**"
     }]
   },
   reactCompiler: true,
   experimental: {
-    turbopackFileSystemCacheForDev:true
+    turbopackFileSystemCacheForDev: true
   },
   async rewrites() {
     return [
