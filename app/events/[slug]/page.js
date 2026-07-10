@@ -1,3 +1,4 @@
+import {cacheLife} from "next/cache";
 import BookEvent from "@/components/BookEvent";
 import Image from "next/image";
 import EventCard from "@/components/EventCard";
@@ -33,6 +34,8 @@ const EventTags = ({ tags }) => {
   )
 }
 const EventDetailPage = async ({ params }) => {
+  'use cache'
+  cacheLife('hours')
   const { slug } = await params;
   const request = await fetch(`${BASE_URL}/api/events/${encodeURIComponent(slug)}`);
   if (!request.ok) {
@@ -84,7 +87,7 @@ const EventDetailPage = async ({ params }) => {
             ) : (
               <p className="text-sm">Be the first to book your spot</p>
             )}
-            <BookEvent />
+            <BookEvent eventId={event._id} slug={event.slug} />
           </div>
         </aside>
       </div>
