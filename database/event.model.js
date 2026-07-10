@@ -83,71 +83,69 @@ const EventSchema = new Schema(
 
 EventSchema.index({ slug: 1 }, { unique: true });
 
-EventSchema.pre('save', function (next) {
+EventSchema.pre('save', async function () {
   if (!nonEmptyString(this.title)) {
-    return next(new Error('title is required'));
+    return new Error('title is required');
   }
 
   if (!nonEmptyString(this.description)) {
-    return next(new Error('description is required'));
+    return new Error('description is required');
   }
 
   if (!nonEmptyString(this.overview)) {
-    return next(new Error('overview is required'));
+    return new Error('overview is required');
   }
 
   if (!nonEmptyString(this.image)) {
-    return next(new Error('image is required'));
+    return new Error('image is required');
   }
 
   if (!nonEmptyString(this.venue)) {
-    return next(new Error('venue is required'));
+    return new Error('venue is required');
   }
 
   if (!nonEmptyString(this.location)) {
-    return next(new Error('location is required'));
+    return new Error('location is required');
   }
 
   if (!nonEmptyString(this.date)) {
-    return next(new Error('date is required'));
+    return new Error('date is required');
   }
 
   if (!nonEmptyString(this.time)) {
-    return next(new Error('time is required'));
+    return new Error('time is required');
   }
 
   if (!nonEmptyString(this.mode)) {
-    return next(new Error('mode is required'));
+    return new Error('mode is required');
   }
 
   if (!nonEmptyString(this.audience)) {
-    return next(new Error('audience is required'));
+    return new Error('audience is required');
   }
 
   if (!nonEmptyArray(this.agenda)) {
-    return next(new Error('agenda is required'));
+    return new Error('agenda is required');
   }
 
   if (!nonEmptyString(this.organizer)) {
-    return next(new Error('organizer is required'));
+    return new Error('organizer is required');
   }
 
   if (!nonEmptyArray(this.tags)) {
-    return next(new Error('tags are required'));
+    return new Error('tags are required');
   }
 
   try {
     this.date = normalizeDate(this.date);
     this.time = normalizeTime(this.time);
   } catch (err) {
-    return next(err);
+    return err;
   }
 
   if (this.isModified('title') || this.isNew) {
     this.slug = createSlug(this.title);
   }
-
-  next();
 });
 
 const Event = models.Event || model('Event', EventSchema);
