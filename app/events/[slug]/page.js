@@ -44,7 +44,7 @@ const EventDetailPage = async ({ params }) => {
   const bookings = 10;
   const similarEvents = await getSimilarEventsBySlug(slug)
   // console.log('similar events',similarEvents);
-  
+
   return (
     <section id="event">
       <div className="header">
@@ -82,19 +82,18 @@ const EventDetailPage = async ({ params }) => {
             {bookings > 0 ? (
               <p className="text-sm">Join {bookings} people who have already booked their spot</p>
             ) : (
-                <p className="text-sm">Be the first to book your spot</p>
+              <p className="text-sm">Be the first to book your spot</p>
             )}
-            <BookEvent/>
+            <BookEvent />
           </div>
         </aside>
       </div>
       <div className="flex w-full flex-col gap-4 pt-20">
         <h2 className="text-2xl font-bold">Similar Events</h2>
         <div className="events">
-          {similarEvents.length > 0 && similarEvents.map((similarEvent)=>(
-          <EventCard key={similarEvent.title } title={similarEvent.title} image={similarEvent.image} slug={similarEvent.slug} location={similarEvent.location} date={similarEvent.date} time={similarEvent.time} />
-          ))}
-        </div>
+          {similarEvents.length > 0 && similarEvents.map((similarEvent) => (
+            <EventCard key={similarEvent.slug} title={similarEvent.title} image={similarEvent.image} slug={similarEvent.slug} location={similarEvent.location} date={similarEvent.date} time={similarEvent.time} />
+          ))}        </div>
       </div>
     </section>
   )
